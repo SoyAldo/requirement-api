@@ -1,0 +1,9 @@
+name: requirement-api
+version: '${project.version}'
+main: org.kayteam.requirementapi.RequirementApi
+api-version: 1.13
+softdepend: [ PlaceholderAPI ]
+authors: [ SirOswaldo ]
+description: Requirements for your minecraft plugins!
+website: https://kayteam.org
+depend: [Vault, PlaceholderAPI]

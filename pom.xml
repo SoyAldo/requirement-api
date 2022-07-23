@@ -44,6 +44,22 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.cryptomorin.xseries</pattern>
+                            <shadedPattern>org.kayteam.xseries</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:XSeries</artifact>
+                            <includes>
+                                <exclude>com/cryptomorin/xseries/XSound*</exclude>
+                            </includes>
+                        </filter>
+                    </filters>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
@@ -95,7 +111,7 @@
         <dependency>
             <groupId>com.github.SirOswaldo</groupId>
             <artifactId>storage-api</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.SirOswaldo</groupId>
@@ -103,5 +119,4 @@
             <version>1.1.0</version>
         </dependency>
     </dependencies>
-
 </project>

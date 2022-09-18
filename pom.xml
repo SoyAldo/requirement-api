@@ -109,9 +109,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.SirOswaldo</groupId>
+            <groupId>com.github.KayTeam-Studio<</groupId>
             <artifactId>storage-api</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.8</version>
         </dependency>
         <dependency>
             <groupId>com.github.SirOswaldo</groupId>

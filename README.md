@@ -31,5 +31,16 @@ dependencies {
 ```
 Check the last released version in Releases section
 
+## TODO
+✘ `has exp` type.
+
+✘ `string equals` type.
+
+✘ `string equals ignorecase` type.
+
+✘ `string contains` type.
+
+✘ `(==, >=, <=, !=, >, <)` type.
+
 ## How to use
 https://github.com/SoyAldo/requirement-api/wiki

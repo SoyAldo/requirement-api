@@ -1,5 +1,7 @@
 # requirement-api
 
+Requirements API based on DeluxeMenus and its ease of manipulation during plugin configuration.
+
 ## Maven
 ```XML
 <repository>
@@ -30,4 +32,4 @@ dependencies {
 Check the last released version in Releases section
 
 ## How to use
-https://github.com/SirOswaldo/requirement-api/wiki
+https://github.com/SoyAldo/requirement-api/wiki

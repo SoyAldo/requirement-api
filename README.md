@@ -13,7 +13,7 @@ Requirements API based on DeluxeMenus and its ease of manipulation during plugin
 
 ```XML
 <dependency>
-    <groupId>com.github.SirOswaldo</groupId>
+    <groupId>com.github.SoyAldo</groupId>
     <artifactId>requirement-api</artifactId>
     <version>VERSION</version>
 </dependency>
@@ -27,7 +27,7 @@ repositories {
 
 ```groovy
 dependencies {
-    implementation 'com.github.SirOswaldo:action-api:VERSION'
+    implementation 'com.github.SoyAldo:action-api:VERSION'
 }
 ```
 Check the last released version in Releases section

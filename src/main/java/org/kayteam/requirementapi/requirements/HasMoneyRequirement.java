@@ -3,7 +3,7 @@ package org.kayteam.requirementapi.requirements;
 import org.bukkit.entity.Player;
 
 import org.kayteam.requirementapi.Requirement;
-import org.kayteam.requirementapi.util.PlaceholderUtil;
+import org.kayteam.requirementapi.util.PlaceholderAPIUtil;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -29,7 +29,7 @@ public class HasMoneyRequirement extends Requirement {
 
             String realAmount = amount;
 
-            realAmount = PlaceholderUtil.setPlaceholders( player , realAmount );
+            realAmount = PlaceholderAPIUtil.setPlaceholders( player , realAmount );
 
             try {
 

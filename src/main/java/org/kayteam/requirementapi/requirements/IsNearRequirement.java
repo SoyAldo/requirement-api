@@ -4,7 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.kayteam.requirementapi.Requirement;
-import org.kayteam.requirementapi.util.PlaceholderUtil;
+import org.kayteam.requirementapi.util.PlaceholderAPIUtil;
 
 import java.util.LinkedHashMap;
 
@@ -31,9 +31,9 @@ public class IsNearRequirement extends Requirement {
 
         String realLocation = location , realDistance = distance;
 
-        realLocation = PlaceholderUtil.setPlaceholders( player , realLocation );
+        realLocation = PlaceholderAPIUtil.setPlaceholders( player , realLocation );
 
-        realDistance = PlaceholderUtil.setPlaceholders( player , realDistance );
+        realDistance = PlaceholderAPIUtil.setPlaceholders( player , realDistance );
 
         try {
 

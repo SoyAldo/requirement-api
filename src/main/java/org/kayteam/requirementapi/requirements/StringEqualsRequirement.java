@@ -1,9 +1,8 @@
 package org.kayteam.requirementapi.requirements;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.kayteam.requirementapi.Requirement;
-import org.kayteam.requirementapi.util.PlaceholderUtil;
+import org.kayteam.requirementapi.util.PlaceholderAPIUtil;
 
 import java.util.LinkedHashMap;
 
@@ -30,9 +29,9 @@ public class StringEqualsRequirement extends Requirement {
 
         String realInput = input , realOutput = output;
 
-        realInput = PlaceholderUtil.setPlaceholders( player , realInput );
+        realInput = PlaceholderAPIUtil.setPlaceholders( player , realInput );
 
-        realOutput = PlaceholderUtil.setPlaceholders( player , realOutput );
+        realOutput = PlaceholderAPIUtil.setPlaceholders( player , realOutput );
 
         return isPositive() == ( realInput.equals( realOutput ) );
 

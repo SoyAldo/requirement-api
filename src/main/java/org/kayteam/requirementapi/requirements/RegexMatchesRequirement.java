@@ -2,7 +2,7 @@ package org.kayteam.requirementapi.requirements;
 
 import org.bukkit.entity.Player;
 import org.kayteam.requirementapi.Requirement;
-import org.kayteam.requirementapi.util.PlaceholderUtil;
+import org.kayteam.requirementapi.util.PlaceholderAPIUtil;
 
 import java.util.LinkedHashMap;
 import java.util.regex.Pattern;
@@ -30,9 +30,9 @@ public class RegexMatchesRequirement extends Requirement {
 
         String realInput = input , realRegex = regex;
 
-        realInput = PlaceholderUtil.setPlaceholders( player , realInput);
+        realInput = PlaceholderAPIUtil.setPlaceholders( player , realInput);
 
-        realRegex = PlaceholderUtil.setPlaceholders( player , realRegex);
+        realRegex = PlaceholderAPIUtil.setPlaceholders( player , realRegex);
 
         return isPositive() == ( Pattern.matches( realRegex , realInput ) );
 

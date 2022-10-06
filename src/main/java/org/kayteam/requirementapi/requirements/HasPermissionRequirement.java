@@ -2,7 +2,7 @@ package org.kayteam.requirementapi.requirements;
 
 import org.bukkit.entity.Player;
 import org.kayteam.requirementapi.Requirement;
-import org.kayteam.requirementapi.util.PlaceholderUtil;
+import org.kayteam.requirementapi.util.PlaceholderAPIUtil;
 
 import java.util.LinkedHashMap;
 
@@ -24,7 +24,7 @@ public class HasPermissionRequirement extends Requirement {
 
         String realPermission = permission;
 
-        realPermission = PlaceholderUtil.setPlaceholders( player , realPermission );
+        realPermission = PlaceholderAPIUtil.setPlaceholders( player , realPermission );
 
         return isPositive() == player.hasPermission(realPermission);
 

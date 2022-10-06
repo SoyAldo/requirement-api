@@ -42,5 +42,15 @@ Check the last released version in Releases section
 
 ✘ `(==, >=, <=, !=, >, <)` type.
 
+✘ `Minimun requirement`.
+
+✘ `Stop at success`.
+
+✘ `Global deny actions`.
+
+✘ `Individual deny actions`.
+
+✘ `Individual success actions`.
+
 ## How to use
 https://github.com/SoyAldo/requirement-api/wiki

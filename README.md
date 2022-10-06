@@ -33,16 +33,6 @@ dependencies {
 Check the last released version in Releases section
 
 ## TODO
-✘ `has exp` type.
-
-✘ `string equals` type.
-
-✘ `string equals ignorecase` type.
-
-✘ `string contains` type.
-
-✘ `(==, >=, <=, !=, >, <)` type.
-
 ✘ `Minimun requirement`.
 
 ✘ `Stop at success`.

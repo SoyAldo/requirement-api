@@ -6,8 +6,7 @@
 
     <groupId>org.kayteam</groupId>
     <artifactId>requirement-api</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <version>2.0.0</version>
 
     <name>requirement-api</name>
 
@@ -107,16 +106,6 @@
             <artifactId>VaultAPI</artifactId>
             <version>1.7</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.KayTeam-Studio<</groupId>
-            <artifactId>storage-api</artifactId>
-            <version>1.0.8</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.SirOswaldo</groupId>
-            <artifactId>action-api</artifactId>
-            <version>1.1.0</version>
         </dependency>
     </dependencies>
 </project>

@@ -27,7 +27,7 @@ public class IsNearRequirement extends Requirement {
     }
 
     @Override
-    public boolean verify( Player player ) {
+    public boolean onVerify(Player player ) {
 
         String realLocation = location , realDistance = distance;
 

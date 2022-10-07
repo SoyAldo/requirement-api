@@ -25,7 +25,7 @@ public class StringEndsWithRequirement extends Requirement {
     }
 
     @Override
-    public boolean verify( Player player ) {
+    public boolean onVerify(Player player ) {
 
         String realInput = input , realOutput = output;
 

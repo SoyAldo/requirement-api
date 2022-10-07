@@ -80,7 +80,25 @@ public abstract class Requirement {
      * @param player The player
      * @return true if the player pass or false if not
      */
-    public abstract boolean verify( Player player );
+    public abstract boolean onVerify(Player player );
+
+    public boolean verify( Player player ) {
+
+        boolean result = onVerify( player );
+
+        if ( result ) {
+
+            if ( successActions != null ) successActions.executeAll( player );
+
+        } else {
+
+            if ( denyActions != null ) denyActions.executeAll( player );
+
+        }
+
+        return result;
+
+    }
 
     public LinkedHashMap<String, Object> serialize() {
 

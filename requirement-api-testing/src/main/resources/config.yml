@@ -1,0 +1,19 @@
+types:
+  has exp:
+    type: "has exp"
+    amount: "5"
+    level: true
+    successActions:
+      - "[message] &aHas exp has been passed!"
+    denyActions:
+      - "[message] &cHas exp hasn't been passed!"
+
+
+messages:
+  onlyPlayers: "&cOnly players can be execute this command."
+  emptyArgs: "&cThe sub command is empty."
+  invalidArgs: "&cThe sub command is invalid."
+  reloaded: "&aReloaded."
+  emptyRequirement: "&cThe requirement type is empty."
+  invalidRequirement: "&cThe requirement type is invalid or not exist."
+  verifyStarted: "&aThe requirement has been started the verify."

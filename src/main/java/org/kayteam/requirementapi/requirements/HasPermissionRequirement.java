@@ -20,7 +20,7 @@ public class HasPermissionRequirement extends Requirement {
     }
 
     @Override
-    public boolean verify( Player player ) {
+    public boolean onVerify(Player player ) {
 
         String realPermission = permission;
 

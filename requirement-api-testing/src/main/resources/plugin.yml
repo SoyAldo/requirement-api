@@ -1,0 +1,10 @@
+name: requirement-api-testing
+version: '${project.version}'
+main: org.kayteam.requirementapitesting.RequirementApiTesting
+api-version: 1.13
+softdepend: [ Vault , PlaceholderAPI ]
+authors: [ SoyAldo ]
+description: requirements-api testing plugin.
+commands:
+  RequirementApiTesting:
+    description: "With this command you can test requirements and reload this plugin."

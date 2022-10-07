@@ -23,7 +23,7 @@ public class HasMoneyRequirement extends Requirement {
     }
 
     @Override
-    public boolean verify( Player player ) {
+    public boolean onVerify(Player player ) {
 
         if ( getRequirementManager().getEconomy() != null ) {
 

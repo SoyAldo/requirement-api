@@ -26,7 +26,7 @@ public class HasExp extends Requirement {
     }
 
     @Override
-    public boolean verify( Player player ) {
+    public boolean onVerify(Player player ) {
 
         String realAmount = amount;
 

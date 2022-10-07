@@ -55,7 +55,7 @@ public class Requirements {
 
         for ( Requirement requirement : requirements.values() ) {
 
-            boolean currentResult = requirement.verify( player );
+            boolean currentResult = requirement.onVerify( player );
 
             if ( currentResult ) {
 

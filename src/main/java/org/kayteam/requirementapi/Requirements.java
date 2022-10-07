@@ -7,13 +7,23 @@ import java.util.LinkedHashMap;
 
 public class Requirements {
 
+
+    private int minimumRequirements = 0;
     private final HashMap< String , Requirement > requirements = new HashMap<>();
 
     public HashMap< String , Requirement > getRequirements() {
         return requirements;
     }
 
-    public boolean existRequirement( String name ) {
+    public int getMinimumRequirements() {
+        return minimumRequirements;
+    }
+
+    public void setMinimumRequirements(int minimumRequirements) {
+        this.minimumRequirements = minimumRequirements;
+    }
+
+    public boolean existRequirement(String name ) {
         return requirements.containsKey( name );
     }
 
@@ -21,19 +31,38 @@ public class Requirements {
         requirements.put( requirement.getName() , requirement );
     }
 
-    public Requirement getRequirement( String name ) {
-        return requirements.get( name );
-    }
-
     public void removeRequirement( String name ) {
         requirements.remove( name );
     }
 
+    public Requirement getRequirement( String name ) {
+        return requirements.get( name );
+    }
+
     public boolean verifyAll( Player player ) {
+
+        int requirementsPassed = 0;
+
         for ( Requirement requirement : requirements.values() ) {
-            if ( ! requirement.verify( player ) ) return false;
+
+            boolean currentResult = requirement.verify( player );
+
+            if ( currentResult ) requirementsPassed++;
+
+            if ( minimumRequirements > 0 ) {
+
+                if ( requirementsPassed >= minimumRequirements ) return true;
+
+            } else {
+
+                if ( ! currentResult ) return false;
+
+            }
+
         }
-        return true;
+
+        return ( minimumRequirements <= 0 );
+
     }
 
     public LinkedHashMap< String , Object > serialize() {

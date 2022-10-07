@@ -33,9 +33,7 @@ dependencies {
 Check the last released version in Releases section
 
 ## TODO
-✘ `Minimun requirement`.
-
-✘ `Stop at success`.
+✔ `Minimun requirement`.
 
 ✘ `Global deny actions`.
 

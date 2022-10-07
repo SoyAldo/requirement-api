@@ -18,29 +18,33 @@ public class RequirementManager {
     private final HashMap< String , Requirements > requirements = new HashMap<>();
     private final HashMap< String , RequirementExpansion > requirementExpansions = new HashMap<>();
 
-    public RequirementManager(JavaPlugin javaPlugin) {
+    public RequirementManager( JavaPlugin javaPlugin ) {
         this.javaPlugin = javaPlugin;
     }
 
+    /**
+     * Register the requirement manager
+     * This load all default expansions and Vault Economy
+     */
     public void registerManager() {
 
         if ( VaultUtil.isEconomyEnabled() ) economy = VaultUtil.getEconomy();
 
-        registerExpansion( new HasExpExpansion() );
-        registerExpansion( new HasMoneyExpansion() );
-        registerExpansion( new HasPermissionExpansion() );
-        registerExpansion( new IsNearExpansion() );
-        registerExpansion( new NumberEqualsExpansion() );
-        registerExpansion( new NumberGreaterThanExpansion() );
-        registerExpansion( new NumberGreaterThanOrEqualsExpansion() );
-        registerExpansion( new NumberLessThanExpansion() );
-        registerExpansion( new NumberLessThanOrEqualsExpansion() );
-        registerExpansion( new RegexMatchesExpansion() );
-        registerExpansion( new StringContainsExpansion() );
-        registerExpansion( new StringEndsWithExpansion() );
-        registerExpansion( new StringEqualsExpansion() );
-        registerExpansion( new StringEqualsIgnoreCaseExpansion() );
-        registerExpansion( new StringStartWithExpansion() );
+        addRequirementExpansion( new HasExpExpansion() );
+        addRequirementExpansion( new HasMoneyExpansion() );
+        addRequirementExpansion( new HasPermissionExpansion() );
+        addRequirementExpansion( new IsNearExpansion() );
+        addRequirementExpansion( new NumberEqualsExpansion() );
+        addRequirementExpansion( new NumberGreaterThanExpansion() );
+        addRequirementExpansion( new NumberGreaterThanOrEqualsExpansion() );
+        addRequirementExpansion( new NumberLessThanExpansion() );
+        addRequirementExpansion( new NumberLessThanOrEqualsExpansion() );
+        addRequirementExpansion( new RegexMatchesExpansion() );
+        addRequirementExpansion( new StringContainsExpansion() );
+        addRequirementExpansion( new StringEndsWithExpansion() );
+        addRequirementExpansion( new StringEqualsExpansion() );
+        addRequirementExpansion( new StringEqualsIgnoreCaseExpansion() );
+        addRequirementExpansion( new StringStartWithExpansion() );
 
     }
 
@@ -64,25 +68,73 @@ public class RequirementManager {
         return requirementExpansions;
     }
 
-    public void registerExpansion( RequirementExpansion requirementExpansion ) {
+    /**
+     * Verify if a specific type exist
+     * @param type The requirement type
+     * @return true if the requirement type exist or false if no exist
+     */
+    public boolean existRequirementExpansion( String type ) {
+        return requirementExpansions.containsKey( type );
+    }
+
+    /**
+     * Add new requirement expansion
+     * @param requirementExpansion The requirement expansion
+     */
+    public void addRequirementExpansion(RequirementExpansion requirementExpansion ) {
 
         requirementExpansions.put( requirementExpansion.getType() , requirementExpansion );
 
+    }
+
+    /**
+     * Remove a specific requirement expansion by type
+     * @param type The requirement type
+     */
+    public void removeRequirementExpansion( String type ) {
+        requirementExpansions.remove( type );
+    }
+
+    /**
+     * Get a specific requirement expansion
+     * @param type The requirement type
+     * @return A requirement expansion if exist or null if not exist
+     */
+    public RequirementExpansion getRequirementExpansion( String type ) {
+        return requirementExpansions.get( type );
     }
 
     public Requirements loadRequirements( ConfigurationSection configurationSection ) {
 
         Requirements requirements = new Requirements();
 
-        for ( String name : configurationSection.getKeys(false) ) {
+        if ( configurationSection.contains( "requirements") ) {
 
-            Map< String , Object > format = configurationSection.getConfigurationSection( name ).getValues( true );
+            if ( configurationSection.isConfigurationSection( "requirements" ) ) {
 
-            Requirement requirement = loadRequirement( name , format );
+                for ( String requirementName : configurationSection.getConfigurationSection( "requirements" ).getKeys( false ) ) {
 
-            if ( requirement == null) continue;
+                    if ( ! configurationSection.isConfigurationSection( "requirements." + requirementName ) ) continue;
 
-            requirements.addRequirement( requirement );
+                    Map< String , Object > format = configurationSection.getConfigurationSection( "requirements." + requirementName ).getValues( true );
+
+                    Requirement requirement = loadRequirement( requirementName , format );
+
+                    if ( requirement != null ) requirements.addRequirement( requirement );
+
+                }
+
+            }
+
+        }
+
+        if ( configurationSection.contains( "minimum_requirements" ) ) {
+
+            if ( configurationSection.isInt( "minimum_requirements" ) ) {
+
+                requirements.setMinimumRequirements( configurationSection.getInt( "minimum_requirements" ) );
+
+            }
 
         }
 

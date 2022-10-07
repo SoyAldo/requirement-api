@@ -2,6 +2,7 @@ package org.kayteam.requirementapi;
 
 import net.milkbowl.vault.economy.Economy;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -190,6 +191,10 @@ public class RequirementManager {
 
                 List< String > denyActionsFormats = ( List< String > ) format.get( "denyActions" );
 
+                for ( String denyActionsFormat : denyActionsFormats ) {
+                    Bukkit.getLogger().info( denyActionsFormat );
+                }
+
                 Actions denyActions = actionManager.loadActions( denyActionsFormats );
 
                 requirement.setDenyActions( denyActions );
@@ -198,9 +203,13 @@ public class RequirementManager {
 
             if ( format.containsKey( "successActions" ) ) {
 
-                List< String > successActionsFormat = ( List< String > ) format.get( "successActions" );
+                List< String > successActionsFormats = ( List< String > ) format.get( "successActions" );
 
-                Actions successActions = actionManager.loadActions( successActionsFormat );
+                for ( String successActionsFormat : successActionsFormats ) {
+                    Bukkit.getLogger().info( successActionsFormat );
+                }
+
+                Actions successActions = actionManager.loadActions( successActionsFormats );
 
                 requirement.setSuccessActions( successActions );
 

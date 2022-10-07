@@ -3,10 +3,10 @@ package org.kayteam.requirementapi;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.kayteam.requirementapi.expansions.*;
+import org.kayteam.requirementapi.util.VaultUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,12 +24,7 @@ public class RequirementManager {
 
     public void registerManager() {
 
-        if (javaPlugin.getServer().getPluginManager().getPlugin("Vault") != null) {
-            RegisteredServiceProvider<Economy> registeredServiceProvider = javaPlugin.getServer().getServicesManager().getRegistration(Economy.class);
-            if (registeredServiceProvider != null) {
-                economy = registeredServiceProvider.getProvider();
-            }
-        }
+        if ( VaultUtil.isEconomyEnabled() ) economy = VaultUtil.getEconomy();
 
         registerExpansion( new HasExpExpansion() );
         registerExpansion( new HasMoneyExpansion() );
@@ -46,8 +41,6 @@ public class RequirementManager {
         registerExpansion( new StringEqualsExpansion() );
         registerExpansion( new StringEqualsIgnoreCaseExpansion() );
         registerExpansion( new StringStartWithExpansion() );
-
-        requirementExpansions.put( "" , new StringStartWithExpansion() );
 
     }
 
@@ -107,11 +100,9 @@ public class RequirementManager {
 
             if ( type.startsWith( "!" ) ) type = type.replaceFirst( "!" , "");
 
-            if ( requirementExpansions.containsKey( type ) ) {
+            RequirementExpansion requirementExpansion = requirementExpansions.get( type );
 
-                requirement = requirementExpansions.get( type ).generateRequirement( name , format );
-
-            }
+            if ( requirementExpansion != null ) requirement = requirementExpansion.generateRequirement( name , format );
 
         }
 

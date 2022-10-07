@@ -2,13 +2,15 @@ package org.kayteam.requirementapi;
 
 import org.bukkit.entity.Player;
 
+import org.kayteam.actionapi.Actions;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Requirements {
 
-
     private int minimumRequirements = 0;
+    private Actions denyActions;
     private final HashMap< String , Requirement > requirements = new HashMap<>();
 
     public HashMap< String , Requirement > getRequirements() {
@@ -19,8 +21,16 @@ public class Requirements {
         return minimumRequirements;
     }
 
-    public void setMinimumRequirements(int minimumRequirements) {
+    public void setMinimumRequirements( int minimumRequirements ) {
         this.minimumRequirements = minimumRequirements;
+    }
+
+    public Actions getDenyActions() {
+        return denyActions;
+    }
+
+    public void setDenyActions( Actions denyActions ) {
+        this.denyActions = denyActions;
     }
 
     public boolean existRequirement(String name ) {
@@ -55,13 +65,27 @@ public class Requirements {
 
             } else {
 
-                if ( ! currentResult ) return false;
+                if ( ! currentResult ) {
+
+                    if ( denyActions != null ) denyActions.executeAll( player );
+
+                    return false;
+
+                }
 
             }
 
         }
 
-        return ( minimumRequirements <= 0 );
+        if ( ( minimumRequirements > 0 ) ) {
+
+            if ( denyActions != null ) denyActions.executeAll( player );
+
+            return false;
+
+        }
+
+        return true;
 
     }
 
@@ -69,11 +93,19 @@ public class Requirements {
 
         LinkedHashMap< String , Object > result = new LinkedHashMap<>();
 
+        if ( minimumRequirements > 0 ) result.put( "minimumRequirements" , minimumRequirements );
+
+        LinkedHashMap< String , Object > requirementsSerialized = new LinkedHashMap<>();
+
         for ( Requirement requirement : requirements.values() ) {
 
-            result.put( requirement.getName() , requirement.serialize() );
+            requirementsSerialized.put( requirement.getName() , requirement.serialize() );
 
         }
+
+        result.put( "requirements" , requirementsSerialized );
+
+        if ( denyActions != null ) result.put( "denyActions" , denyActions.serialize() );
 
         return result;
 

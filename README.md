@@ -35,7 +35,7 @@ Check the last released version in Releases section
 ## TODO
 ✔ `Minimun requirement`.
 
-✘ `Global deny actions`.
+✔ `Global deny actions`.
 
 ✘ `Individual deny actions`.
 

@@ -36,6 +36,8 @@ public class RequirementManager {
 
         if ( VaultUtil.isEconomyEnabled() ) economy = VaultUtil.getEconomy();
 
+        actionManager.registerManager();
+
         addRequirementExpansion( new HasExpExpansion() );
         addRequirementExpansion( new HasMoneyExpansion() );
         addRequirementExpansion( new HasPermissionExpansion() );

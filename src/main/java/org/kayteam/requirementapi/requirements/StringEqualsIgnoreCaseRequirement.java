@@ -43,8 +43,6 @@ public class StringEqualsIgnoreCaseRequirement extends Requirement {
 
         LinkedHashMap< String , Object > result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!string equals ignorecase" );
-
         result.put( "input" , input);
 
         result.put( "output" , output);

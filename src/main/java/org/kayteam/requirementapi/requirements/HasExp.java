@@ -57,8 +57,6 @@ public class HasExp extends Requirement {
 
         LinkedHashMap<String, Object> result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!has exp" );
-
         result.put( "amount" , amount );
 
         result.put( "level" , level );

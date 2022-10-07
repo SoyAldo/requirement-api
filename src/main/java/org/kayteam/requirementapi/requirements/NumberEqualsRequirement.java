@@ -52,8 +52,6 @@ public class NumberEqualsRequirement extends Requirement {
 
         LinkedHashMap<String, Object> result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!number equals" );
-
         result.put( "input" , input );
 
         result.put( "output" , output );

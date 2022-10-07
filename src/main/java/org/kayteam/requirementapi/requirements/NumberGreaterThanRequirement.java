@@ -52,8 +52,6 @@ public class NumberGreaterThanRequirement extends Requirement {
 
         LinkedHashMap<String, Object> result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!number greater than" );
-
         result.put( "input" , input );
 
         result.put( "output" , output );

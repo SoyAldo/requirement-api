@@ -73,8 +73,6 @@ public class IsNearRequirement extends Requirement {
 
         LinkedHashMap<String, Object> result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!is near" );
-
         result.put( "location" , location );
 
         result.put( "distance" , distance );

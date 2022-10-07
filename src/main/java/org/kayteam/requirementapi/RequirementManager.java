@@ -182,7 +182,31 @@ public class RequirementManager {
 
         }
 
-        if ( requirement != null ) requirement.setRequirementManager( this );
+        if ( requirement != null ) {
+
+            requirement.setRequirementManager( this );
+
+            if ( format.containsKey( "denyActions" ) ) {
+
+                List< String > denyActionsFormats = ( List< String > ) format.get( "denyActions" );
+
+                Actions denyActions = actionManager.loadActions( denyActionsFormats );
+
+                requirement.setDenyActions( denyActions );
+
+            }
+
+            if ( format.containsKey( "successActions" ) ) {
+
+                List< String > successActionsFormat = ( List< String > ) format.get( "successActions" );
+
+                Actions successActions = actionManager.loadActions( successActionsFormat );
+
+                requirement.setSuccessActions( successActions );
+
+            }
+
+        }
 
         return requirement;
 

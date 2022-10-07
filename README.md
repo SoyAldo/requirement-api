@@ -37,9 +37,9 @@ Check the last released version in Releases section
 
 ✔ `Global deny actions`.
 
-✘ `Individual deny actions`.
+✔ `Individual deny actions`.
 
-✘ `Individual success actions`.
+✔ `Individual success actions`.
 
 ## How to use
 https://github.com/SoyAldo/requirement-api/wiki

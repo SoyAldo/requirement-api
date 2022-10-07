@@ -43,8 +43,6 @@ public class RegexMatchesRequirement extends Requirement {
 
         LinkedHashMap<String, Object> result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!regex matches" );
-
         result.put("input", input);
 
         result.put("regex", regex);

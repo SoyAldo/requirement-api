@@ -42,8 +42,6 @@ public class StringStartWithRequirement extends Requirement {
 
         LinkedHashMap<String, Object> result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!string start with" );
-
         result.put( "input" , input );
 
         result.put( "output" , output );

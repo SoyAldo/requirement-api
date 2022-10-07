@@ -1,6 +1,7 @@
 package org.kayteam.requirementapi;
 
 import org.bukkit.entity.Player;
+import org.kayteam.actionapi.Actions;
 
 import java.util.LinkedHashMap;
 
@@ -10,6 +11,7 @@ public abstract class Requirement {
     private final String name;
     private final String type;
     private final boolean positive;
+    private Actions denyActions , successActions;
 
     public Requirement( String name , String type , boolean positive) {
         this.name = name;
@@ -57,6 +59,22 @@ public abstract class Requirement {
         return positive;
     }
 
+    public Actions getDenyActions() {
+        return denyActions;
+    }
+
+    public void setDenyActions(Actions denyActions) {
+        this.denyActions = denyActions;
+    }
+
+    public Actions getSuccessActions() {
+        return successActions;
+    }
+
+    public void setSuccessActions(Actions successActions) {
+        this.successActions = successActions;
+    }
+
     /**
      * Verify if the player pass this requirement
      * @param player The player
@@ -68,7 +86,19 @@ public abstract class Requirement {
 
         LinkedHashMap< String , Object > result = new LinkedHashMap<>();
 
-        result.put( "type" , type );
+        if ( positive ) {
+
+            result.put( "type" , type );
+
+        } else {
+
+            result.put( "type" , "!" + type );
+
+        }
+
+        if ( denyActions != null ) result.put( "denyActions" , denyActions.serialize() );
+
+        if ( successActions != null ) result.put( "successAction" , successActions.serialize() );
 
         return result;
 

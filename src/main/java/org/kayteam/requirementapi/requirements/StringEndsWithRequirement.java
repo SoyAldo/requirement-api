@@ -42,8 +42,6 @@ public class StringEndsWithRequirement extends Requirement {
 
         LinkedHashMap<String, Object> result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!string ends with" );
-
         result.put( "input" , input );
 
         result.put( "output" , output );

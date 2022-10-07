@@ -54,8 +54,6 @@ public class HasMoneyRequirement extends Requirement {
 
         LinkedHashMap< String , Object > result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!has money" );
-
         result.put( "amount" , amount );
 
         return result;

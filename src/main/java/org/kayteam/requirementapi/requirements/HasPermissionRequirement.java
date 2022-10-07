@@ -35,8 +35,6 @@ public class HasPermissionRequirement extends Requirement {
 
         LinkedHashMap< String , Object > result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!has permission" );
-
         result.put( "permission" , permission );
 
         return result;

@@ -57,7 +57,13 @@ public class Requirements {
 
             boolean currentResult = requirement.verify( player );
 
-            if ( currentResult ) requirementsPassed++;
+            if ( currentResult ) {
+
+                if ( requirement.getSuccessActions() != null ) requirement.getSuccessActions().executeAll( player );
+
+                requirementsPassed++;
+
+            }
 
             if ( minimumRequirements > 0 ) {
 
@@ -67,7 +73,15 @@ public class Requirements {
 
                 if ( ! currentResult ) {
 
-                    if ( denyActions != null ) denyActions.executeAll( player );
+                    if ( requirement.getDenyActions() != null ) {
+
+                        requirement.getDenyActions().executeAll( player );
+
+                    } else {
+
+                        if ( denyActions != null ) denyActions.executeAll( player );
+
+                    }
 
                     return false;
 

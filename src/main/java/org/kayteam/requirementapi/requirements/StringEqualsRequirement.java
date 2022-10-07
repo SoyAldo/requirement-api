@@ -42,8 +42,6 @@ public class StringEqualsRequirement extends Requirement {
 
         LinkedHashMap< String , Object > result = super.serialize();
 
-        if ( ! isPositive() ) result.put( "type" , "!string equals" );
-
         result.put( "input" , input);
 
         result.put( "output" , output);

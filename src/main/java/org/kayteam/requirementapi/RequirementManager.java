@@ -191,10 +191,6 @@ public class RequirementManager {
 
                 List< String > denyActionsFormats = ( List< String > ) format.get( "denyActions" );
 
-                for ( String denyActionsFormat : denyActionsFormats ) {
-                    Bukkit.getLogger().info( denyActionsFormat );
-                }
-
                 Actions denyActions = actionManager.loadActions( denyActionsFormats );
 
                 requirement.setDenyActions( denyActions );
@@ -204,10 +200,6 @@ public class RequirementManager {
             if ( format.containsKey( "successActions" ) ) {
 
                 List< String > successActionsFormats = ( List< String > ) format.get( "successActions" );
-
-                for ( String successActionsFormat : successActionsFormats ) {
-                    Bukkit.getLogger().info( successActionsFormat );
-                }
 
                 Actions successActions = actionManager.loadActions( successActionsFormats );
 

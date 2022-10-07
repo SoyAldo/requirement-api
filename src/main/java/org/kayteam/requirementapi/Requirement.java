@@ -1,6 +1,8 @@
 package org.kayteam.requirementapi;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.kayteam.actionapi.Action;
 import org.kayteam.actionapi.Actions;
 
 import java.util.LinkedHashMap;
@@ -86,13 +88,25 @@ public abstract class Requirement {
 
         boolean result = onVerify( player );
 
+        Bukkit.getLogger().info( "Result: " + result);
+
         if ( result ) {
 
-            if ( successActions != null ) successActions.executeAll( player );
+            if ( successActions != null ) {
+                for ( Action action : successActions.getActions().values() ) {
+                    Bukkit.getLogger().info( "Action: " + action.getType() + action.getValue() );
+                }
+                successActions.executeAll( player );
+            }
 
         } else {
 
-            if ( denyActions != null ) denyActions.executeAll( player );
+            if ( denyActions != null ) {
+                for ( Action action : denyActions.getActions().values() ) {
+                    Bukkit.getLogger().info( "Action: " + action.getType() + action.getValue() );
+                }
+                denyActions.executeAll( player );
+            }
 
         }
 

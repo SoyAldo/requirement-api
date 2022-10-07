@@ -78,7 +78,7 @@
         <dependency>
             <groupId>com.github.SoyAldo</groupId>
             <artifactId>requirement-api</artifactId>
-            <version>c1e12420b6</version>
+            <version>2c8c380158</version>
         </dependency>
     </dependencies>
 

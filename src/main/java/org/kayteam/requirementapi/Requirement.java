@@ -92,21 +92,11 @@ public abstract class Requirement {
 
         if ( result ) {
 
-            if ( successActions != null ) {
-                for ( Action action : successActions.getActions().values() ) {
-                    Bukkit.getLogger().info( "Action: " + action.getType() + action.getValue() );
-                }
-                successActions.executeAll( player );
-            }
+            if ( successActions != null ) successActions.executeAll( player );
 
         } else {
 
-            if ( denyActions != null ) {
-                for ( Action action : denyActions.getActions().values() ) {
-                    Bukkit.getLogger().info( "Action: " + action.getType() + action.getValue() );
-                }
-                denyActions.executeAll( player );
-            }
+            if ( denyActions != null ) denyActions.executeAll( player );
 
         }
 

@@ -1,8 +1,6 @@
 package org.kayteam.requirementapi;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.kayteam.actionapi.Action;
 import org.kayteam.actionapi.Actions;
 
 import java.util.LinkedHashMap;
@@ -87,8 +85,6 @@ public abstract class Requirement {
     public boolean verify( Player player ) {
 
         boolean result = onVerify( player );
-
-        Bukkit.getLogger().info( "Result: " + result);
 
         if ( result ) {
 

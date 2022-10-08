@@ -1,5 +1,7 @@
 package org.kayteam.requirementapitesting;
 
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kayteam.requirementapi.RequirementManager;
 import org.kayteam.requirementapitesting.commands.RequirementApiTestingCommand;
@@ -8,7 +10,8 @@ import java.io.File;
 
 public final class RequirementApiTesting extends JavaPlugin {
 
-    RequirementManager requirementManager = new RequirementManager( this );
+    private FileConfiguration config;
+    private final RequirementManager requirementManager = new RequirementManager( this );
 
     @Override
     public void onEnable() {
@@ -26,23 +29,21 @@ public final class RequirementApiTesting extends JavaPlugin {
 
     public void onReload() {
 
-        try {
-
-            getConfig().load( new File( getDataFolder() + "config.yml") );
-
-        } catch ( Exception ignore ) { }
+        registerFiles();
 
     }
 
     private void registerFiles() {
 
-        File file = new File( getDataFolder() , "config.yml" );
+        File file = new File( getDataFolder() , "config.yml");
 
         if ( ! file.exists() ) {
 
-            saveResource( "config.yml" , true );
+            saveResource("config.yml", true );
 
         }
+
+        config = YamlConfiguration.loadConfiguration( file );
 
     }
 
@@ -62,6 +63,12 @@ public final class RequirementApiTesting extends JavaPlugin {
 
         return requirementManager;
 
+    }
+
+
+    @Override
+    public FileConfiguration getConfig() {
+        return config;
     }
 
 }

@@ -1,12 +1,23 @@
-types:
+single:
   has exp:
     type: "has exp"
     amount: "5"
     level: true
     successActions:
+      - "[sound] ENTITY_PLAYER_LEVELUP"
       - "[message] &aHas exp has been passed!"
     denyActions:
+      - "[sound] ENTITY_VILLAGER_NO"
       - "[message] &cHas exp hasn't been passed!"
+  has money:
+    type: "has money"
+    amount: "100"
+    successActions:
+      - "[sound] ENTITY_PLAYER_LEVELUP"
+      - "[message] &aHas money has been passed!"
+    denyActions:
+      - "[sound] ENTITY_VILLAGER_NO"
+      - "[message] &cHas money hasn't been passed!"
 
 
 messages:

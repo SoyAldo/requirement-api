@@ -56,7 +56,7 @@ public class RequirementApiTestingCommand implements CommandExecutor , TabComple
 
             sender.sendMessage( ChatColor.translateAlternateColorCodes( '&' , config.getString( "messages.reloaded" ) ) );
 
-        } else if ( subcommand.equalsIgnoreCase( "test" ) ) {
+        } else if ( subcommand.equalsIgnoreCase( "testsingle" ) ) {
 
             if ( args.length < 2 ) {
 
@@ -67,6 +67,7 @@ public class RequirementApiTestingCommand implements CommandExecutor , TabComple
             }
 
             StringBuilder requirementTypeBuilder = new StringBuilder();
+
             String requirementType;
 
             for ( int i = 1 ; i < args.length ; i++ ) {
@@ -106,13 +107,15 @@ public class RequirementApiTestingCommand implements CommandExecutor , TabComple
 
         if ( args.length == 1 ) {
 
-            return Arrays.asList( "reload" , "test" );
+            return Arrays.asList( "reload" , "testsingle" , "testmultiple" );
 
         }
 
         if ( args.length == 2 ) {
 
-            return Arrays.asList( "has exp" );
+            if ( args[0].equalsIgnoreCase( "testsingle" ) ) return Arrays.asList( "has exp" , "has money" );
+
+            if ( args[0].equalsIgnoreCase( "testmultiple" ) ) return Arrays.asList( "has exp" , "has money" );
 
         }
 

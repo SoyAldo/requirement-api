@@ -80,7 +80,25 @@ public abstract class Requirement {
      * @param player The player
      * @return true if the player pass or false if not
      */
-    public abstract boolean onVerify(Player player );
+    public abstract boolean onVerify( Player player );
+
+    public boolean verify( Player player , boolean executeActions ) {
+
+        boolean result = onVerify( player );
+
+        if ( result ) {
+
+            if ( executeActions && successActions != null ) successActions.executeAll( player );
+
+        } else {
+
+            if ( executeActions && denyActions != null ) denyActions.executeAll( player );
+
+        }
+
+        return result;
+
+    }
 
     public boolean verify( Player player ) {
 

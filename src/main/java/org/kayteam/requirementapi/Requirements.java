@@ -103,6 +103,60 @@ public class Requirements {
 
     }
 
+    public boolean verifyAll( Player player , boolean executeActions ) {
+
+        int requirementsPassed = 0;
+
+        for ( Requirement requirement : requirements.values() ) {
+
+            boolean currentResult = requirement.onVerify( player );
+
+            if ( currentResult ) {
+
+                if ( executeActions && requirement.getSuccessActions() != null ) requirement.getSuccessActions().executeAll( player );
+
+                requirementsPassed++;
+
+            }
+
+            if ( minimumRequirements > 0 ) {
+
+                if ( requirementsPassed >= minimumRequirements ) return true;
+
+            } else {
+
+                if ( ! currentResult ) {
+
+                    if ( executeActions && requirement.getDenyActions() != null ) {
+
+                        requirement.getDenyActions().executeAll( player );
+
+                    } else {
+
+                        if ( executeActions && denyActions != null ) denyActions.executeAll( player );
+
+                    }
+
+                    return false;
+
+                }
+
+            }
+
+        }
+
+        if ( ( minimumRequirements > 0 ) ) {
+
+            if ( executeActions && denyActions != null ) denyActions.executeAll( player );
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
     public LinkedHashMap< String , Object > serialize() {
 
         LinkedHashMap< String , Object > result = new LinkedHashMap<>();

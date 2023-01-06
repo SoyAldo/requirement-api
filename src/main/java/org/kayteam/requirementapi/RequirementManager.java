@@ -1,5 +1,6 @@
 package org.kayteam.requirementapi;
 
+import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.configuration.ConfigurationSection;
@@ -16,42 +17,38 @@ import java.util.Map;
 
 public class RequirementManager {
 
-    private final JavaPlugin javaPlugin;
-    private Economy economy = null;
-    private final ActionManager actionManager;
-    private final HashMap< String , Requirements > requirements = new HashMap<>();
-    private final HashMap< String , RequirementExpansion > requirementExpansions = new HashMap<>();
+    @Getter private final JavaPlugin javaPlugin;
+    @Getter private Economy economy = null;
+    @Getter private final ActionManager actionManager;
+    @Getter private final HashMap<String, Requirements> requirements = new HashMap<>();
+    @Getter private final HashMap<String, RequirementExpansion> requirementExpansions = new HashMap<>();
 
-    public RequirementManager( JavaPlugin javaPlugin ) {
+    public RequirementManager(JavaPlugin javaPlugin) {
         this.javaPlugin = javaPlugin;
-        actionManager = new ActionManager( javaPlugin );
+        actionManager = new ActionManager(javaPlugin);
     }
 
-    /**
-     * Register the requirement manager
-     * This load all default expansions and Vault Economy
-     */
     public void registerManager() {
 
-        if ( VaultUtil.isEconomyEnabled() ) economy = VaultUtil.getEconomy();
+        if (VaultUtil.isEconomyEnabled()) economy = VaultUtil.getEconomy();
 
         actionManager.registerManager();
 
-        addRequirementExpansion( new HasExpExpansion() );
-        addRequirementExpansion( new HasMoneyExpansion() );
-        addRequirementExpansion( new HasPermissionExpansion() );
-        addRequirementExpansion( new IsNearExpansion() );
-        addRequirementExpansion( new NumberEqualsExpansion() );
-        addRequirementExpansion( new NumberGreaterThanExpansion() );
-        addRequirementExpansion( new NumberGreaterThanOrEqualsExpansion() );
-        addRequirementExpansion( new NumberLessThanExpansion() );
-        addRequirementExpansion( new NumberLessThanOrEqualsExpansion() );
-        addRequirementExpansion( new RegexMatchesExpansion() );
-        addRequirementExpansion( new StringContainsExpansion() );
-        addRequirementExpansion( new StringEndsWithExpansion() );
-        addRequirementExpansion( new StringEqualsExpansion() );
-        addRequirementExpansion( new StringEqualsIgnoreCaseExpansion() );
-        addRequirementExpansion( new StringStartWithExpansion() );
+        addRequirementExpansion(new HasExpExpansion());
+        addRequirementExpansion(new HasMoneyExpansion());
+        addRequirementExpansion(new HasPermissionExpansion());
+        addRequirementExpansion(new IsNearExpansion());
+        addRequirementExpansion(new NumberEqualsExpansion());
+        addRequirementExpansion(new NumberGreaterThanExpansion());
+        addRequirementExpansion(new NumberGreaterThanOrEqualsExpansion());
+        addRequirementExpansion(new NumberLessThanExpansion());
+        addRequirementExpansion(new NumberLessThanOrEqualsExpansion());
+        addRequirementExpansion(new RegexMatchesExpansion());
+        addRequirementExpansion(new StringContainsExpansion());
+        addRequirementExpansion(new StringEndsWithExpansion());
+        addRequirementExpansion(new StringEqualsExpansion());
+        addRequirementExpansion(new StringEqualsIgnoreCaseExpansion());
+        addRequirementExpansion(new StringStartWithExpansion());
 
     }
 
@@ -59,79 +56,63 @@ public class RequirementManager {
 
     }
 
-    public JavaPlugin getJavaPlugin() {
-        return javaPlugin;
-    }
-
-    public Economy getEconomy() {
-        return economy;
-    }
-
-    public ActionManager getActionManager() {
-        return actionManager;
-    }
-
-    public HashMap<String, Requirements> getRequirements() {
-        return requirements;
-    }
-
-    public HashMap<String, RequirementExpansion> getRequirementExpansions() {
-        return requirementExpansions;
-    }
-
     /**
      * Verify if a specific type exist
+     *
      * @param type The requirement type
      * @return true if the requirement type exist or false if no exist
      */
-    public boolean existRequirementExpansion( String type ) {
-        return requirementExpansions.containsKey( type );
+    public boolean existRequirementExpansion(String type) {
+        return requirementExpansions.containsKey(type);
     }
 
     /**
      * Add new requirement expansion
+     *
      * @param requirementExpansion The requirement expansion
      */
-    public void addRequirementExpansion(RequirementExpansion requirementExpansion ) {
+    public void addRequirementExpansion(RequirementExpansion requirementExpansion) {
 
-        requirementExpansions.put( requirementExpansion.getType() , requirementExpansion );
+        requirementExpansions.put(requirementExpansion.getType(), requirementExpansion);
 
     }
 
     /**
      * Remove a specific requirement expansion by type
+     *
      * @param type The requirement type
      */
-    public void removeRequirementExpansion( String type ) {
-        requirementExpansions.remove( type );
+    public void removeRequirementExpansion(String type) {
+        requirementExpansions.remove(type);
     }
 
     /**
      * Get a specific requirement expansion
+     *
      * @param type The requirement type
      * @return A requirement expansion if exist or null if not exist
      */
-    public RequirementExpansion getRequirementExpansion( String type ) {
-        return requirementExpansions.get( type );
+    public RequirementExpansion getRequirementExpansion(String type) {
+        return requirementExpansions.get(type);
     }
 
-    public Requirements loadRequirements( ConfigurationSection configurationSection ) {
+    public Requirements loadRequirements(ConfigurationSection configurationSection) {
 
         Requirements requirements = new Requirements();
 
-        if ( configurationSection.contains( "requirements") ) {
+        if (configurationSection.contains("requirements")) {
 
-            if ( configurationSection.isConfigurationSection( "requirements" ) ) {
+            if (configurationSection.isConfigurationSection("requirements")) {
 
-                for ( String requirementName : configurationSection.getConfigurationSection( "requirements" ).getKeys( false ) ) {
+                for (String requirementName : configurationSection.getConfigurationSection("requirements").getKeys(false)) {
 
-                    if ( ! configurationSection.isConfigurationSection( "requirements." + requirementName ) ) continue;
+                    if (!configurationSection.isConfigurationSection("requirements." + requirementName)) continue;
 
-                    Map< String , Object > format = configurationSection.getConfigurationSection( "requirements." + requirementName ).getValues( true );
+                    Map<String, Object> format = configurationSection.getConfigurationSection("requirements." + requirementName).getValues(true);
 
-                    Requirement requirement = loadRequirement( requirementName , format );
+                    Requirement requirement = loadRequirement(requirementName, format);
 
-                    if ( requirement != null ) requirements.addRequirement( requirement );
+                    if (requirement != null) requirements.addRequirement(requirement);
 
                 }
 
@@ -139,26 +120,26 @@ public class RequirementManager {
 
         }
 
-        if ( configurationSection.contains( "minimumRequirements" ) ) {
+        if (configurationSection.contains("minimumRequirements")) {
 
-            if ( configurationSection.isInt( "minimumRequirements" ) ) {
+            if (configurationSection.isInt("minimumRequirements")) {
 
-                requirements.setMinimumRequirements( configurationSection.getInt( "minimumRequirements" ) );
+                requirements.setMinimumRequirements(configurationSection.getInt("minimumRequirements"));
 
             }
 
         }
 
 
-        if ( configurationSection.contains( "denyActions" ) ) {
+        if (configurationSection.contains("denyActions")) {
 
-            if ( configurationSection.isList( "denyActions" ) ) {
+            if (configurationSection.isList("denyActions")) {
 
-                List< String > denyActionsFormats = configurationSection.getStringList( "denyActions" );
+                List<String> denyActionsFormats = configurationSection.getStringList("denyActions");
 
-                Actions denyActions = actionManager.loadActions( denyActionsFormats );
+                Actions denyActions = actionManager.loadActions(denyActionsFormats);
 
-                requirements.setDenyActions( denyActions );
+                requirements.setDenyActions(denyActions);
 
             }
 
@@ -168,43 +149,43 @@ public class RequirementManager {
 
     }
 
-    public Requirement loadRequirement( String name , Map< String , Object > format ) {
+    public Requirement loadRequirement(String name, Map<String, Object> format) {
 
         Requirement requirement = null;
 
-        if ( format.containsKey( "type" ) ) {
+        if (format.containsKey("type")) {
 
-            String type = ( String ) format.get( "type" );
+            String type = (String) format.get("type");
 
-            if ( type.startsWith( "!" ) ) type = type.replaceFirst( "!" , "");
+            if (type.startsWith("!")) type = type.replaceFirst("!", "");
 
-            RequirementExpansion requirementExpansion = requirementExpansions.get( type );
+            RequirementExpansion requirementExpansion = requirementExpansions.get(type);
 
-            if ( requirementExpansion != null ) requirement = requirementExpansion.generateRequirement( name , format );
+            if (requirementExpansion != null) requirement = requirementExpansion.generateRequirement(name, format);
 
         }
 
-        if ( requirement != null ) {
+        if (requirement != null) {
 
-            requirement.setRequirementManager( this );
+            requirement.setRequirementManager(this);
 
-            if ( format.containsKey( "denyActions" ) ) {
+            if (format.containsKey("denyActions")) {
 
-                List< String > denyActionsFormats = ( List< String > ) format.get( "denyActions" );
+                List<String> denyActionsFormats = (List<String>) format.get("denyActions");
 
-                Actions denyActions = actionManager.loadActions( denyActionsFormats );
+                Actions denyActions = actionManager.loadActions(denyActionsFormats);
 
-                requirement.setDenyActions( denyActions );
+                requirement.setDenyActions(denyActions);
 
             }
 
-            if ( format.containsKey( "successActions" ) ) {
+            if (format.containsKey("successActions")) {
 
-                List< String > successActionsFormats = ( List< String > ) format.get( "successActions" );
+                List<String> successActionsFormats = (List<String>) format.get("successActions");
 
-                Actions successActions = actionManager.loadActions( successActionsFormats );
+                Actions successActions = actionManager.loadActions(successActionsFormats);
 
-                requirement.setSuccessActions( successActions );
+                requirement.setSuccessActions(successActions);
 
             }
 

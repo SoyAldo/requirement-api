@@ -13,8 +13,8 @@ public class HasMoneyRequirement extends Requirement {
 
     private final String amount;
 
-    public HasMoneyRequirement( String name , String amount , boolean positive ) {
-        super( name , "has money" , positive );
+    public HasMoneyRequirement(String name, String amount, boolean positive) {
+        super(name, "has money", positive);
         this.amount = amount;
     }
 
@@ -23,41 +23,29 @@ public class HasMoneyRequirement extends Requirement {
     }
 
     @Override
-    public boolean onVerify(Player player ) {
+    public boolean onVerify(Player player) {
+        if (getRequirementManager().getEconomy() == null) return !isPositive();
 
-        if ( getRequirementManager().getEconomy() != null ) {
+        String realAmount = amount;
+        realAmount = PlaceholderAPIUtil.setPlaceholders(player, realAmount);
 
-            String realAmount = amount;
-
-            realAmount = PlaceholderAPIUtil.setPlaceholders( player , realAmount );
-
-            try {
-
-                double parsedAmount = Double.parseDouble( realAmount );
-
-                Economy economy = getRequirementManager().getEconomy();
-
-                double balance = economy.getBalance( player );
-
-                return isPositive() == ( balance >= parsedAmount );
-
-            } catch ( NumberFormatException ignore ) {}
-
+        try {
+            double parsedAmount = Double.parseDouble(realAmount);
+            Economy economy = getRequirementManager().getEconomy();
+            double balance = economy.getBalance(player);
+            return isPositive() == (balance >= parsedAmount);
+        } catch (NumberFormatException ignore) {
+            return !isPositive();
         }
-
-        return !isPositive();
-
     }
 
     @Override
     public LinkedHashMap<String, Object> serialize() {
+        LinkedHashMap<String, Object> result = super.serialize();
 
-        LinkedHashMap< String , Object > result = super.serialize();
-
-        result.put( "amount" , amount );
+        result.put("amount", amount);
 
         return result;
-
     }
 
 }

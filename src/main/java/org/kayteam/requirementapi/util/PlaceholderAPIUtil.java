@@ -10,32 +10,24 @@ import org.bukkit.plugin.PluginManager;
 
 public class PlaceholderAPIUtil {
 
-    public static String setPlaceholders( Player player , String text ) {
-
+    public static String setPlaceholders(Player player, String text) {
         Server server = Bukkit.getServer();
-
         PluginManager pluginManager = server.getPluginManager();
+        Plugin placeholderapi = pluginManager.getPlugin("PlaceholderAPI");
 
-        Plugin placeholderapi = pluginManager.getPlugin( "PlaceholderAPI" );
+        if (placeholderapi == null) return text;
 
-        if ( placeholderapi != null ) text = PlaceholderAPI.setPlaceholders( player , text );
-
-        return text;
-
+        return PlaceholderAPI.setPlaceholders(player, text);
     }
 
-    public static String setPlaceholders( OfflinePlayer player , String text ) {
-
+    public static String setPlaceholders(OfflinePlayer player, String text) {
         Server server = Bukkit.getServer();
-
         PluginManager pluginManager = server.getPluginManager();
+        Plugin placeholderapi = pluginManager.getPlugin("PlaceholderAPI");
 
-        Plugin placeholderapi = pluginManager.getPlugin( "PlaceholderAPI" );
+        if (placeholderapi == null) return text;
 
-        if ( placeholderapi != null ) text = PlaceholderAPI.setPlaceholders( player , text );
-
-        return text;
-
+        return PlaceholderAPI.setPlaceholders(player, text);
     }
 
 }

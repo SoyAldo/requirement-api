@@ -11,51 +11,33 @@ import org.bukkit.plugin.ServicesManager;
 public class VaultUtil {
 
     public static boolean isEconomyEnabled() {
-
-        Economy economy = null;
-
         Server server = Bukkit.getServer();
-
         PluginManager pluginManager = server.getPluginManager();
+        Plugin vault = pluginManager.getPlugin("Vault");
 
-        Plugin vault = pluginManager.getPlugin( "Vault" );
+        if (vault == null) return false;
 
-        if ( vault != null ) {
+        ServicesManager servicesManager = server.getServicesManager();
+        RegisteredServiceProvider<Economy> registeredServiceProvider = servicesManager.getRegistration(Economy.class);
 
-            ServicesManager servicesManager = server.getServicesManager();
+        if (registeredServiceProvider == null) return false;
 
-            RegisteredServiceProvider< Economy > registeredServiceProvider = servicesManager.getRegistration( Economy.class );
-
-            if ( registeredServiceProvider != null ) economy = registeredServiceProvider.getProvider();
-
-        }
-
-        return economy != null;
-
+        return registeredServiceProvider.getProvider() != null;
     }
 
     public static Economy getEconomy() {
-
-        Economy economy = null;
-
         Server server = Bukkit.getServer();
-
         PluginManager pluginManager = server.getPluginManager();
+        Plugin vault = pluginManager.getPlugin("Vault");
 
-        Plugin vault = pluginManager.getPlugin( "Vault" );
+        if (vault == null) return null;
 
-        if ( vault != null ) {
+        ServicesManager servicesManager = server.getServicesManager();
+        RegisteredServiceProvider<Economy> registeredServiceProvider = servicesManager.getRegistration(Economy.class);
 
-            ServicesManager servicesManager = server.getServicesManager();
+        if (registeredServiceProvider == null) return null;
 
-            RegisteredServiceProvider< Economy > registeredServiceProvider = servicesManager.getRegistration( Economy.class );
-
-            if ( registeredServiceProvider != null ) economy = registeredServiceProvider.getProvider();
-
-        }
-
-        return economy;
-
+        return registeredServiceProvider.getProvider();
     }
 
 }

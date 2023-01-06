@@ -1,143 +1,77 @@
 package org.kayteam.requirementapi;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.kayteam.actionapi.Actions;
 
 import java.util.LinkedHashMap;
 
+@Data
 public abstract class Requirement {
 
+    @Getter
+    @Setter
     private RequirementManager requirementManager;
+    @Getter
     private final String name;
+    @Getter
     private final String type;
+    @Getter
     private final boolean positive;
-    private Actions denyActions , successActions;
-
-    public Requirement( String name , String type , boolean positive) {
-        this.name = name;
-        this.type = type;
-        this.positive = positive;
-    }
-
-    /**
-     * Sets the requirement manager for this requirement
-     * @param manager The RequirementManager
-     */
-    public void setRequirementManager(RequirementManager manager) {
-        requirementManager = manager;
-    }
-
-    /**
-     * Get the requirement manager
-     * @return The requirement manager
-     */
-    public RequirementManager getRequirementManager() {
-        return requirementManager;
-    }
-
-    /**
-     * Get the requirement name
-     * @return The name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get the requirement type
-     * @return The type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * Get if the requirement is positive or negative
-     * @return true if the requirement verify is positive to pass or false if the requirement verify is negative to pass
-     */
-    public boolean isPositive() {
-        return positive;
-    }
-
-    public Actions getDenyActions() {
-        return denyActions;
-    }
-
-    public void setDenyActions(Actions denyActions) {
-        this.denyActions = denyActions;
-    }
-
-    public Actions getSuccessActions() {
-        return successActions;
-    }
-
-    public void setSuccessActions(Actions successActions) {
-        this.successActions = successActions;
-    }
+    @Getter
+    @Setter
+    private Actions denyActions;
+    @Getter
+    @Setter
+    private Actions successActions;
 
     /**
      * Verify if the player pass this requirement
+     *
      * @param player The player
      * @return true if the player pass or false if not
      */
-    public abstract boolean onVerify( Player player );
+    public abstract boolean onVerify(Player player);
 
-    public boolean verify( Player player , boolean executeActions ) {
+    public boolean verify(Player player, boolean executeActions) {
+        boolean result = onVerify(player);
 
-        boolean result = onVerify( player );
-
-        if ( result ) {
-
-            if ( executeActions && successActions != null ) successActions.executeAll( player );
-
+        if (result) {
+            if (executeActions && successActions != null) successActions.executeAll(player);
         } else {
-
-            if ( executeActions && denyActions != null ) denyActions.executeAll( player );
-
+            if (executeActions && denyActions != null) denyActions.executeAll(player);
         }
 
         return result;
-
     }
 
-    public boolean verify( Player player ) {
+    public boolean verify(Player player) {
+        boolean result = onVerify(player);
 
-        boolean result = onVerify( player );
-
-        if ( result ) {
-
-            if ( successActions != null ) successActions.executeAll( player );
-
+        if (result) {
+            if (successActions != null) successActions.executeAll(player);
         } else {
-
-            if ( denyActions != null ) denyActions.executeAll( player );
-
+            if (denyActions != null) denyActions.executeAll(player);
         }
 
         return result;
-
     }
 
     public LinkedHashMap<String, Object> serialize() {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
 
-        LinkedHashMap< String , Object > result = new LinkedHashMap<>();
-
-        if ( positive ) {
-
-            result.put( "type" , type );
-
+        if (positive) {
+            result.put("type", type);
         } else {
-
-            result.put( "type" , "!" + type );
-
+            result.put("type", "!" + type);
         }
 
-        if ( denyActions != null ) result.put( "denyActions" , denyActions.serialize() );
-
-        if ( successActions != null ) result.put( "successAction" , successActions.serialize() );
+        if (denyActions != null) result.put("denyActions", denyActions.serialize());
+        if (successActions != null) result.put("successAction", successActions.serialize());
 
         return result;
-
     }
 
 }

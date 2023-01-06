@@ -1,5 +1,7 @@
 package org.kayteam.requirementapi;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 
 import org.kayteam.actionapi.Actions;
@@ -9,77 +11,57 @@ import java.util.LinkedHashMap;
 
 public class Requirements {
 
-    private int minimumRequirements = 0;
-    private Actions denyActions;
-    private final HashMap< String , Requirement > requirements = new HashMap<>();
+    @Getter @Setter private int minimumRequirements = 0;
+    @Getter @Setter private Actions denyActions;
+    @Getter private final HashMap<String, Requirement> requirements = new HashMap<>();
 
-    public HashMap< String , Requirement > getRequirements() {
-        return requirements;
+    public boolean existRequirement(String name) {
+        return requirements.containsKey(name);
     }
 
-    public int getMinimumRequirements() {
-        return minimumRequirements;
+    public void addRequirement(Requirement requirement) {
+        requirements.put(requirement.getName(), requirement);
     }
 
-    public void setMinimumRequirements( int minimumRequirements ) {
-        this.minimumRequirements = minimumRequirements;
+    public void removeRequirement(String name) {
+        requirements.remove(name);
     }
 
-    public Actions getDenyActions() {
-        return denyActions;
+    public Requirement getRequirement(String name) {
+        return requirements.get(name);
     }
 
-    public void setDenyActions( Actions denyActions ) {
-        this.denyActions = denyActions;
-    }
-
-    public boolean existRequirement(String name ) {
-        return requirements.containsKey( name );
-    }
-
-    public void addRequirement( Requirement requirement ) {
-        requirements.put( requirement.getName() , requirement );
-    }
-
-    public void removeRequirement( String name ) {
-        requirements.remove( name );
-    }
-
-    public Requirement getRequirement( String name ) {
-        return requirements.get( name );
-    }
-
-    public boolean verifyAll( Player player ) {
+    public boolean verifyAll(Player player) {
 
         int requirementsPassed = 0;
 
-        for ( Requirement requirement : requirements.values() ) {
+        for (Requirement requirement : requirements.values()) {
 
-            boolean currentResult = requirement.onVerify( player );
+            boolean currentResult = requirement.onVerify(player);
 
-            if ( currentResult ) {
+            if (currentResult) {
 
-                if ( requirement.getSuccessActions() != null ) requirement.getSuccessActions().executeAll( player );
+                if (requirement.getSuccessActions() != null) requirement.getSuccessActions().executeAll(player);
 
                 requirementsPassed++;
 
             }
 
-            if ( minimumRequirements > 0 ) {
+            if (minimumRequirements > 0) {
 
-                if ( requirementsPassed >= minimumRequirements ) return true;
+                if (requirementsPassed >= minimumRequirements) return true;
 
             } else {
 
-                if ( ! currentResult ) {
+                if (!currentResult) {
 
-                    if ( requirement.getDenyActions() != null ) {
+                    if (requirement.getDenyActions() != null) {
 
-                        requirement.getDenyActions().executeAll( player );
+                        requirement.getDenyActions().executeAll(player);
 
                     } else {
 
-                        if ( denyActions != null ) denyActions.executeAll( player );
+                        if (denyActions != null) denyActions.executeAll(player);
 
                     }
 
@@ -91,9 +73,9 @@ public class Requirements {
 
         }
 
-        if ( ( minimumRequirements > 0 ) ) {
+        if ((minimumRequirements > 0)) {
 
-            if ( denyActions != null ) denyActions.executeAll( player );
+            if (denyActions != null) denyActions.executeAll(player);
 
             return false;
 
@@ -103,37 +85,38 @@ public class Requirements {
 
     }
 
-    public boolean verifyAll( Player player , boolean executeActions ) {
+    public boolean verifyAll(Player player, boolean executeActions) {
 
         int requirementsPassed = 0;
 
-        for ( Requirement requirement : requirements.values() ) {
+        for (Requirement requirement : requirements.values()) {
 
-            boolean currentResult = requirement.onVerify( player );
+            boolean currentResult = requirement.onVerify(player);
 
-            if ( currentResult ) {
+            if (currentResult) {
 
-                if ( executeActions && requirement.getSuccessActions() != null ) requirement.getSuccessActions().executeAll( player );
+                if (executeActions && requirement.getSuccessActions() != null)
+                    requirement.getSuccessActions().executeAll(player);
 
                 requirementsPassed++;
 
             }
 
-            if ( minimumRequirements > 0 ) {
+            if (minimumRequirements > 0) {
 
-                if ( requirementsPassed >= minimumRequirements ) return true;
+                if (requirementsPassed >= minimumRequirements) return true;
 
             } else {
 
-                if ( ! currentResult ) {
+                if (!currentResult) {
 
-                    if ( executeActions && requirement.getDenyActions() != null ) {
+                    if (executeActions && requirement.getDenyActions() != null) {
 
-                        requirement.getDenyActions().executeAll( player );
+                        requirement.getDenyActions().executeAll(player);
 
                     } else {
 
-                        if ( executeActions && denyActions != null ) denyActions.executeAll( player );
+                        if (executeActions && denyActions != null) denyActions.executeAll(player);
 
                     }
 
@@ -145,9 +128,9 @@ public class Requirements {
 
         }
 
-        if ( ( minimumRequirements > 0 ) ) {
+        if ((minimumRequirements > 0)) {
 
-            if ( executeActions && denyActions != null ) denyActions.executeAll( player );
+            if (executeActions && denyActions != null) denyActions.executeAll(player);
 
             return false;
 
@@ -157,23 +140,23 @@ public class Requirements {
 
     }
 
-    public LinkedHashMap< String , Object > serialize() {
+    public LinkedHashMap<String, Object> serialize() {
 
-        LinkedHashMap< String , Object > result = new LinkedHashMap<>();
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
 
-        if ( minimumRequirements > 0 ) result.put( "minimumRequirements" , minimumRequirements );
+        if (minimumRequirements > 0) result.put("minimumRequirements", minimumRequirements);
 
-        LinkedHashMap< String , Object > requirementsSerialized = new LinkedHashMap<>();
+        LinkedHashMap<String, Object> requirementsSerialized = new LinkedHashMap<>();
 
-        for ( Requirement requirement : requirements.values() ) {
+        for (Requirement requirement : requirements.values()) {
 
-            requirementsSerialized.put( requirement.getName() , requirement.serialize() );
+            requirementsSerialized.put(requirement.getName(), requirement.serialize());
 
         }
 
-        result.put( "requirements" , requirementsSerialized );
+        result.put("requirements", requirementsSerialized);
 
-        if ( denyActions != null ) result.put( "denyActions" , denyActions.serialize() );
+        if (denyActions != null) result.put("denyActions", denyActions.serialize());
 
         return result;
 

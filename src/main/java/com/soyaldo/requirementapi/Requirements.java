@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 public class Requirements {
 
     private int minimumRequirements = 0;
-    private Actions denyActions = new Actions();
+    private Actions denyActions;
     private final HashMap<String, Requirement> requirements = new HashMap<>();
 
     public int getMinimumRequirements() {

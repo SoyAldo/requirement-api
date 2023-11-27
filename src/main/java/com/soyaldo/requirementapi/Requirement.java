@@ -11,8 +11,8 @@ public abstract class Requirement {
     private final String name;
     private final String type;
     private final boolean positive;
-    private Actions denyActions = null;
-    private Actions successActions = null;
+    private Actions denyActions;
+    private Actions successActions;
 
     public Requirement(String name, String type, boolean positive) {
         this.name = name;

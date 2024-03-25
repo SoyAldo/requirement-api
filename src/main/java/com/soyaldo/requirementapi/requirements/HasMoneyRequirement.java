@@ -23,10 +23,15 @@ public class HasMoneyRequirement extends Requirement {
     }
 
     @Override
-    public boolean onVerify(Player player) {
+    public boolean onVerify(Player player, String[][] replacements) {
         if (getRequirementManager().getEconomy() == null) return !isPositive();
 
         String realAmount = amount;
+
+        for (String[] replacement : replacements) {
+            realAmount = realAmount.replace(replacement[0], replacement[1]);
+        }
+
         realAmount = PlaceholderApi.setPlaceholders(player, realAmount);
 
         try {

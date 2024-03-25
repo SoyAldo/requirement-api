@@ -13,24 +13,15 @@ public class HasExpExpansion extends RequirementExpansion {
     }
 
     @Override
-    public Requirement generateRequirement( String name , Map< String , Object > format ) {
-
+    public Requirement generateRequirement(String name, Map<String, Object> format) {
         Requirement requirement = null;
-
-        String type = ( String ) format.get( "type" );
-
-        if ( format.containsKey( "amount" ) && format.containsKey( "level" ) ) {
-
-            String amount = ( String ) format.get( "amount" );
-
-            boolean level = ( Boolean ) format.get( "level" );
-
-            requirement = new HasExp( name , amount , level , !type.startsWith( "!" ) );
-
+        String type = (String) format.get("type");
+        if (format.containsKey("amount") && format.containsKey("level")) {
+            String amount = (String) format.get("amount");
+            boolean level = (Boolean) format.get("level");
+            requirement = new HasExp(name, amount, level, !type.startsWith("!"));
         }
-
         return requirement;
-
     }
 
 }

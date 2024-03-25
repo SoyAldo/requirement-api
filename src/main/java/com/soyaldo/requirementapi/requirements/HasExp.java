@@ -1,8 +1,8 @@
 package com.soyaldo.requirementapi.requirements;
 
-import org.bukkit.entity.Player;
 import com.soyaldo.requirementapi.Requirement;
 import com.soyaldo.requirementapi.util.PlaceholderApi;
+import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
 
@@ -26,8 +26,12 @@ public class HasExp extends Requirement {
     }
 
     @Override
-    public boolean onVerify(Player player) {
+    public boolean onVerify(Player player, String[][] replacements) {
         String realAmount = amount;
+
+        for (String[] replacement : replacements) {
+            realAmount = realAmount.replace(replacement[0], replacement[1]);
+        }
 
         realAmount = PlaceholderApi.setPlaceholders(player, realAmount);
 

@@ -1,17 +1,17 @@
 package com.soyaldo.requirementapi.requirements;
 
-import org.bukkit.entity.Player;
 import com.soyaldo.requirementapi.Requirement;
 import com.soyaldo.requirementapi.util.PlaceholderApi;
+import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
 
 public class StringEndsWithRequirement extends Requirement {
 
-    private final String input , output;
+    private final String input, output;
 
-    public StringEndsWithRequirement(String name , String input , String output , boolean positive ) {
-        super( name , "string ends with" , positive );
+    public StringEndsWithRequirement(String name, String input, String output, boolean positive) {
+        super(name, "string ends with", positive);
         this.input = input;
         this.output = output;
     }
@@ -25,29 +25,27 @@ public class StringEndsWithRequirement extends Requirement {
     }
 
     @Override
-    public boolean onVerify(Player player ) {
+    public boolean onVerify(Player player, String[][] replacements) {
+        String realInput = input;
+        String realOutput = output;
 
-        String realInput = input , realOutput = output;
+        for (String[] replacement : replacements) {
+            realInput = realInput.replace(replacement[0], replacement[1]);
+            realOutput = realOutput.replace(replacement[0], replacement[1]);
+        }
 
-        realInput = PlaceholderApi.setPlaceholders( player , realInput);
+        realInput = PlaceholderApi.setPlaceholders(player, realInput);
+        realOutput = PlaceholderApi.setPlaceholders(player, realOutput);
 
-        realOutput = PlaceholderApi.setPlaceholders( player , realOutput);
-
-        return isPositive() == ( realInput.endsWith( realOutput ) );
-
+        return isPositive() == (realInput.endsWith(realOutput));
     }
 
     @Override
     public LinkedHashMap<String, Object> serialize() {
-
         LinkedHashMap<String, Object> result = super.serialize();
-
-        result.put( "input" , input );
-
-        result.put( "output" , output );
-
+        result.put("input", input);
+        result.put("output", output);
         return result;
-
     }
 
 }

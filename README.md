@@ -6,40 +6,18 @@ Requirements API based on DeluxeMenus and its ease of manipulation during plugin
 ## Maven
 ```XML
 <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
+    <id>yosoyaldo</id>
+    <url>https://repo.repsy.io/mvn/yosoyaldo/public</url>
 </repository>
 ```
-
 ```XML
 <dependency>
-    <groupId>com.github.SoyAldo</groupId>
+    <groupId>me.soyaldo</groupId>
     <artifactId>requirement-api</artifactId>
-    <version>VERSION</version>
+    <version>3.0.0</version>
+    <scope>compile</scope>
 </dependency>
 ```
-## Gradle
-```groovy
-repositories {
-    maven {url'https://jitpack.io' }
-}
-```
-
-```groovy
-dependencies {
-    implementation 'com.github.SoyAldo:requirement-api:VERSION'
-}
-```
-Check the last released version in Releases section
-
-## TODO
-✔ `Minimun requirement`.
-
-✔ `Global deny actions`.
-
-✔ `Individual deny actions`.
-
-✔ `Individual success actions`.
 
 ## How to use
 https://github.com/SoyAldo/requirement-api/wiki

@@ -1,6 +1,6 @@
 package me.soyaldo.requirementapi;
 
-import me.soyaldo.actionapi.Actions;
+import me.soyaldo.actionapi.models.Actions;
 import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;

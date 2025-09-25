@@ -1,7 +1,7 @@
 package me.soyaldo.requirementapi;
 
-import me.soyaldo.actionapi.Actions;
 import me.soyaldo.actionapi.managers.ActionManager;
+import me.soyaldo.actionapi.models.Actions;
 import me.soyaldo.requirementapi.expansions.*;
 import me.soyaldo.requirementapi.expansions.*;
 import me.soyaldo.requirementapi.util.Vault;
@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class RequirementManager {
 
@@ -108,11 +109,11 @@ public class RequirementManager {
 
             if (configurationSection.isConfigurationSection("requirements")) {
 
-                for (String requirementName : configurationSection.getConfigurationSection("requirements").getKeys(false)) {
+                for (String requirementName : Objects.requireNonNull(configurationSection.getConfigurationSection("requirements")).getKeys(false)) {
 
                     if (!configurationSection.isConfigurationSection("requirements." + requirementName)) continue;
 
-                    Map<String, Object> format = configurationSection.getConfigurationSection("requirements." + requirementName).getValues(true);
+                    Map<String, Object> format = Objects.requireNonNull(configurationSection.getConfigurationSection("requirements." + requirementName)).getValues(true);
 
                     Requirement requirement = loadRequirement(requirementName, format);
 

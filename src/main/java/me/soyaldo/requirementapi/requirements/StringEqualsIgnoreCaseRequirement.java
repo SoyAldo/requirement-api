@@ -1,16 +1,18 @@
 package me.soyaldo.requirementapi.requirements;
 
 import me.soyaldo.requirementapi.Requirement;
+import me.soyaldo.requirementapi.util.RequirementUtil;
 import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
 
 public class StringEqualsIgnoreCaseRequirement extends Requirement {
 
-    private final String input, output;
+    private final String input;
+    private final String output;
 
     public StringEqualsIgnoreCaseRequirement(String name, String input, String output, boolean positive) {
-        super(name, "string equals ignorecase", positive);
+        super(name, "string equals ignore case", positive);
         this.input = input;
         this.output = output;
     }
@@ -25,14 +27,8 @@ public class StringEqualsIgnoreCaseRequirement extends Requirement {
 
     @Override
     public boolean onVerify(Player player, String[][] replacements) {
-        String realInput = input;
-        String realOutput = output;
-
-        for (String[] replacement : replacements) {
-            realInput = realInput.replace(replacement[0], replacement[1]);
-            realOutput = realOutput.replace(replacement[0], replacement[1]);
-        }
-
+        String realInput = RequirementUtil.processText(input, player, replacements);
+        String realOutput = RequirementUtil.processText(output, player, replacements);
         return isPositive() == (realInput.equalsIgnoreCase(realOutput));
     }
 

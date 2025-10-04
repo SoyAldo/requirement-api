@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
 import me.soyaldo.requirementapi.requirements.StringStartWithRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class StringStartWithExpansion extends RequirementExpansion {
+public class StringStartWithExpansion implements RequirementExpansion {
 
-    public StringStartWithExpansion() {
-        super("string starts with");
+    @Override
+    public String getType() {
+        return "string starts with";
     }
 
     @Override

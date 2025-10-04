@@ -1,7 +1,6 @@
 package me.soyaldo.requirementapi.requirements;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.util.PlaceholderApi;
+import me.soyaldo.requirementapi.models.Requirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 import org.bukkit.entity.Player;
 

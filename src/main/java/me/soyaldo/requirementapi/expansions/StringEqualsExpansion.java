@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
 import me.soyaldo.requirementapi.requirements.StringEqualsRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class StringEqualsExpansion extends RequirementExpansion {
+public class StringEqualsExpansion implements RequirementExpansion {
 
-    public StringEqualsExpansion() {
-        super("string equals");
+    @Override
+    public String getType() {
+        return "string equals";
     }
 
     @Override

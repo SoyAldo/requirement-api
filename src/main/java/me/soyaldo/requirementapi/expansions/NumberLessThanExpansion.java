@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
 import me.soyaldo.requirementapi.requirements.NumberLessThanRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class NumberLessThanExpansion extends RequirementExpansion {
+public class NumberLessThanExpansion implements RequirementExpansion {
 
-    public NumberLessThanExpansion() {
-        super("number less than");
+    @Override
+    public String getType() {
+        return "number less than";
     }
 
     @Override

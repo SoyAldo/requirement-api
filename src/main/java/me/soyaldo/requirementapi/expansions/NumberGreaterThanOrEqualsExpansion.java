@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
 import me.soyaldo.requirementapi.requirements.NumberGreaterThanOrEqualsRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class NumberGreaterThanOrEqualsExpansion extends RequirementExpansion {
+public class NumberGreaterThanOrEqualsExpansion implements RequirementExpansion {
 
-    public NumberGreaterThanOrEqualsExpansion() {
-        super("number greater than or equals");
+    @Override
+    public String getType() {
+        return "number greater than or equals";
     }
 
     @Override

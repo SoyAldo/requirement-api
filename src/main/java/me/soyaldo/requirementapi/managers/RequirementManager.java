@@ -1,9 +1,11 @@
-package me.soyaldo.requirementapi;
+package me.soyaldo.requirementapi.managers;
 
 import me.soyaldo.actionapi.managers.ActionManager;
 import me.soyaldo.actionapi.models.Actions;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.models.Requirements;
 import me.soyaldo.requirementapi.expansions.*;
-import me.soyaldo.requirementapi.expansions.*;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
 import me.soyaldo.requirementapi.util.Vault;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.ConfigurationSection;
@@ -44,7 +46,6 @@ public class RequirementManager {
         addRequirementExpansion(new HasExpExpansion());
         addRequirementExpansion(new HasMoneyExpansion());
         addRequirementExpansion(new HasPermissionExpansion());
-        addRequirementExpansion(new IsNearExpansion());
         addRequirementExpansion(new NumberEqualsExpansion());
         addRequirementExpansion(new NumberGreaterThanExpansion());
         addRequirementExpansion(new NumberGreaterThanOrEqualsExpansion());

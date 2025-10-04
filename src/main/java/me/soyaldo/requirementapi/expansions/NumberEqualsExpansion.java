@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
 import me.soyaldo.requirementapi.requirements.NumberEqualsRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class NumberEqualsExpansion extends RequirementExpansion {
+public class NumberEqualsExpansion implements RequirementExpansion {
 
-    public NumberEqualsExpansion() {
-        super("number equals");
+    @Override
+    public String getType() {
+        return "number equals";
     }
 
     @Override

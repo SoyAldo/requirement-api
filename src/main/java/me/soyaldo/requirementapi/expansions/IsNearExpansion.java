@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
 import me.soyaldo.requirementapi.requirements.IsNearRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class IsNearExpansion extends RequirementExpansion {
+public class IsNearExpansion implements RequirementExpansion {
 
-    public IsNearExpansion() {
-        super("is near");
+    @Override
+    public String getType() {
+        return "is near";
     }
 
     @Override

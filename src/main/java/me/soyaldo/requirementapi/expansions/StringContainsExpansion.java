@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
 import me.soyaldo.requirementapi.requirements.StringContainsRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class StringContainsExpansion extends RequirementExpansion {
+public class StringContainsExpansion implements RequirementExpansion {
 
-    public StringContainsExpansion() {
-        super("string contains");
+    @Override
+    public String getType() {
+        return "string contains";
     }
 
     @Override

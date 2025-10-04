@@ -1,14 +1,15 @@
 package me.soyaldo.requirementapi.requirements;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.util.PlaceholderApi;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.util.RequirementUtil;
 import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
 
 public class StringEndsWithRequirement extends Requirement {
 
-    private final String input, output;
+    private final String input;
+    private final String output;
 
     public StringEndsWithRequirement(String name, String input, String output, boolean positive) {
         super(name, "string ends with", positive);
@@ -26,17 +27,8 @@ public class StringEndsWithRequirement extends Requirement {
 
     @Override
     public boolean onVerify(Player player, String[][] replacements) {
-        String realInput = input;
-        String realOutput = output;
-
-        for (String[] replacement : replacements) {
-            realInput = realInput.replace(replacement[0], replacement[1]);
-            realOutput = realOutput.replace(replacement[0], replacement[1]);
-        }
-
-        realInput = PlaceholderApi.setPlaceholders(player, realInput);
-        realOutput = PlaceholderApi.setPlaceholders(player, realOutput);
-
+        String realInput = RequirementUtil.processText(input, player, replacements);
+        String realOutput = RequirementUtil.processText(output, player, replacements);
         return isPositive() == (realInput.endsWith(realOutput));
     }
 

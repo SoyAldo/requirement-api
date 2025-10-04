@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
 import me.soyaldo.requirementapi.requirements.StringEqualsIgnoreCaseRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class StringEqualsIgnoreCaseExpansion extends RequirementExpansion {
+public class StringEqualsIgnoreCaseExpansion implements RequirementExpansion {
 
-    public StringEqualsIgnoreCaseExpansion() {
-        super("string equals ignore case");
+    @Override
+    public String getType() {
+        return "string equals ignore case";
     }
 
     @Override

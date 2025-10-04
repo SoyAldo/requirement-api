@@ -1,7 +1,7 @@
 package me.soyaldo.requirementapi.requirements;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.util.PlaceholderApi;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.util.RequirementUtil;
 import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
@@ -27,14 +27,7 @@ public class HasExp extends Requirement {
 
     @Override
     public boolean onVerify(Player player, String[][] replacements) {
-        String realAmount = amount;
-
-        for (String[] replacement : replacements) {
-            realAmount = realAmount.replace(replacement[0], replacement[1]);
-        }
-
-        realAmount = PlaceholderApi.setPlaceholders(player, realAmount);
-
+        String realAmount = RequirementUtil.processText(amount, player, replacements);
         try {
             int parsedAmount = Integer.parseInt(realAmount);
             if (level) {
@@ -43,18 +36,15 @@ public class HasExp extends Requirement {
                 return isPositive() == (player.getTotalExperience() >= parsedAmount);
             }
         } catch (NumberFormatException ignore) {
+            return !isPositive();
         }
-
-        return !isPositive();
     }
 
     @Override
     public LinkedHashMap<String, Object> serialize() {
         LinkedHashMap<String, Object> result = super.serialize();
-
         result.put("amount", amount);
         result.put("level", level);
-
         return result;
     }
 

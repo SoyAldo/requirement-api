@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
 import me.soyaldo.requirementapi.requirements.RegexMatchesRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class RegexMatchesExpansion extends RequirementExpansion {
+public class RegexMatchesExpansion implements RequirementExpansion {
 
-    public RegexMatchesExpansion() {
-        super("regex matches");
+    @Override
+    public String getType() {
+        return "regex matches";
     }
 
     @Override

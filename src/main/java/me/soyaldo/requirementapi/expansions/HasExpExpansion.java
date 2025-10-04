@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
 import me.soyaldo.requirementapi.requirements.HasExp;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class HasExpExpansion extends RequirementExpansion {
+public class HasExpExpansion implements RequirementExpansion {
 
-    public HasExpExpansion() {
-        super("has exp");
+    @Override
+    public String getType() {
+        return "has exp";
     }
 
     @Override

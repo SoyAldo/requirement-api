@@ -1,4 +1,4 @@
-package me.soyaldo.requirementapi;
+package me.soyaldo.requirementapi.models;
 
 import me.soyaldo.actionapi.models.Actions;
 import org.bukkit.entity.Player;

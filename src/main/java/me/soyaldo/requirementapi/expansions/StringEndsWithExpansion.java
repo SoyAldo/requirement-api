@@ -1,16 +1,17 @@
 package me.soyaldo.requirementapi.expansions;
 
-import me.soyaldo.requirementapi.Requirement;
-import me.soyaldo.requirementapi.RequirementExpansion;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
 import me.soyaldo.requirementapi.requirements.StringEndsWithRequirement;
 import me.soyaldo.requirementapi.util.RequirementUtil;
 
 import java.util.Map;
 
-public class StringEndsWithExpansion extends RequirementExpansion {
+public class StringEndsWithExpansion implements RequirementExpansion {
 
-    public StringEndsWithExpansion() {
-        super("string ends with");
+    @Override
+    public String getType() {
+        return "string ends with";
     }
 
     @Override

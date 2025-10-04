@@ -8,7 +8,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicesManager;
 
-public class Vault {
+public class VaultUtil {
 
     public static boolean isEconomyEnabled() {
         Server server = Bukkit.getServer();

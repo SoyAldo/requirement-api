@@ -2,11 +2,11 @@ package me.soyaldo.requirementapi.managers;
 
 import me.soyaldo.actionapi.managers.ActionManager;
 import me.soyaldo.actionapi.models.Actions;
-import me.soyaldo.requirementapi.models.Requirement;
-import me.soyaldo.requirementapi.models.Requirements;
 import me.soyaldo.requirementapi.expansions.*;
 import me.soyaldo.requirementapi.interfaces.RequirementExpansion;
-import me.soyaldo.requirementapi.util.Vault;
+import me.soyaldo.requirementapi.models.Requirement;
+import me.soyaldo.requirementapi.models.Requirements;
+import me.soyaldo.requirementapi.util.VaultUtil;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,7 +21,6 @@ public class RequirementManager {
     private final JavaPlugin javaPlugin;
     private Economy economy = null;
     private final ActionManager actionManager;
-    private final HashMap<String, Requirements> requirements = new HashMap<>();
     private final HashMap<String, RequirementExpansion> requirementExpansions = new HashMap<>();
 
     public RequirementManager(JavaPlugin javaPlugin) {
@@ -37,12 +36,17 @@ public class RequirementManager {
         return economy;
     }
 
+    /**
+     * Register the requirement manager
+     */
     public void registerManager() {
-
-        if (Vault.isEconomyEnabled()) economy = Vault.getEconomy();
-
+        // Initialize the vault integration
+        if (VaultUtil.isEconomyEnabled()) {
+            economy = VaultUtil.getEconomy();
+        }
+        // Registering the action manager
         actionManager.registerManager();
-
+        // Adding all default expansions
         addRequirementExpansion(new HasExpExpansion());
         addRequirementExpansion(new HasMoneyExpansion());
         addRequirementExpansion(new HasPermissionExpansion());
@@ -57,9 +61,11 @@ public class RequirementManager {
         addRequirementExpansion(new StringEqualsExpansion());
         addRequirementExpansion(new StringEqualsIgnoreCaseExpansion());
         addRequirementExpansion(new StringStartWithExpansion());
-
     }
 
+    /**
+     * Reload the requirement manager
+     */
     public void reloadManager() {
         actionManager.reloadManager();
     }
@@ -103,102 +109,61 @@ public class RequirementManager {
     }
 
     public Requirements loadRequirements(ConfigurationSection configurationSection) {
-
         Requirements requirements = new Requirements();
 
         if (configurationSection.contains("requirements")) {
-
             if (configurationSection.isConfigurationSection("requirements")) {
-
                 for (String requirementName : Objects.requireNonNull(configurationSection.getConfigurationSection("requirements")).getKeys(false)) {
-
                     if (!configurationSection.isConfigurationSection("requirements." + requirementName)) continue;
-
                     Map<String, Object> format = Objects.requireNonNull(configurationSection.getConfigurationSection("requirements." + requirementName)).getValues(true);
-
                     Requirement requirement = loadRequirement(requirementName, format);
-
                     if (requirement != null) requirements.addRequirement(requirement);
-
                 }
-
             }
-
         }
 
         if (configurationSection.contains("minimumRequirements")) {
-
             if (configurationSection.isInt("minimumRequirements")) {
-
                 requirements.setMinimumRequirements(configurationSection.getInt("minimumRequirements"));
-
             }
-
         }
 
-
         if (configurationSection.contains("denyActions")) {
-
             if (configurationSection.isList("denyActions")) {
-
                 List<String> denyActionsFormats = configurationSection.getStringList("denyActions");
-
                 Actions denyActions = actionManager.loadActions(denyActionsFormats);
-
                 requirements.setDenyActions(denyActions);
-
             }
-
         }
 
         return requirements;
-
     }
 
     public Requirement loadRequirement(String name, Map<String, Object> format) {
-
         Requirement requirement = null;
 
         if (format.containsKey("type")) {
-
             String type = (String) format.get("type");
-
             if (type.startsWith("!")) type = type.replaceFirst("!", "");
-
             RequirementExpansion requirementExpansion = requirementExpansions.get(type);
-
             if (requirementExpansion != null) requirement = requirementExpansion.generateRequirement(name, format);
-
         }
 
         if (requirement != null) {
-
             requirement.setRequirementManager(this);
-
             if (format.containsKey("denyActions")) {
-
                 List<String> denyActionsFormats = (List<String>) format.get("denyActions");
-
                 Actions denyActions = actionManager.loadActions(denyActionsFormats);
-
                 requirement.setDenyActions(denyActions);
-
             }
-
             if (format.containsKey("successActions")) {
-
                 List<String> successActionsFormats = (List<String>) format.get("successActions");
-
                 Actions successActions = actionManager.loadActions(successActionsFormats);
-
                 requirement.setSuccessActions(successActions);
-
             }
-
         }
 
         return requirement;
-
     }
 
 }

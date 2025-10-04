@@ -1,7 +1,7 @@
 package me.soyaldo.requirementapi.requirements;
 
 import me.soyaldo.requirementapi.models.Requirement;
-import me.soyaldo.requirementapi.util.PlaceholderApi;
+import me.soyaldo.requirementapi.util.PapiUtil;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -36,9 +36,9 @@ public class IsNearRequirement extends Requirement {
             realDistance = realDistance.replace(replacement[0], replacement[1]);
         }
 
-        realLocation = PlaceholderApi.setPlaceholders(player, realLocation);
+        realLocation = PapiUtil.setPlaceholders(player, realLocation);
 
-        realDistance = PlaceholderApi.setPlaceholders(player, realDistance);
+        realDistance = PapiUtil.setPlaceholders(player, realDistance);
 
         try {
 

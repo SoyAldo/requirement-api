@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
-public class PlaceholderApi {
+public class PapiUtil {
 
     public static String setPlaceholders(Player player, String text) {
         Server server = Bukkit.getServer();
